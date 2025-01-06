@@ -6,18 +6,7 @@ A = int(input())
 B = int(input())
 C = int(input())
 
-r = A * B * C
+result = list(str(A * B * C)) #문자열을 리스트로 변환 시에는 각 요소가 분리된다.
 
-dict = {i : 0 for i in range(10)}
-
-while (1) :
-    if r == 0 :
-        break;
-
-    d = r % 10
-    r = r // 10
-
-    dict[d] += 1
-
-for i in dict.values() :
-    print(i)
+for i in range(10) :
+    print(result.count(str(i)))
