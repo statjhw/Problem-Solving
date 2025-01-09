@@ -1,78 +1,19 @@
 #10989_수 정렬하기 3
-#정렬
+#계수정렬, 메모리, 시간모두 초과될 수 있음
 #O(nlogn)
 
-#Heap-Sort 구현
+import sys
+def input() :
+    return sys.stdin.readline()
 
-class Heap :
-    def __init__(self) :
-        self.data = []
-        self.root_index = 1
-        self.heap_size = 0
-        self.data.append(-1)
+n = int(input())
 
-    def is_empty(self) :
-        if self.heap_size == 0 :
-            return True
-        else :
-            return False
-        
-    def swap(self, idx1, idx2) :
-        self.data[idx1], self.data[idx2] = self.data[idx2], self.data[idx1]
-    
-    def up_heap(self, idx) :
-        if (idx == self.root_index) :
-            return
-        else :
-            parent = idx // 2
-            if self.data[parent] > self.data[idx] :
-                self.swap(parent, idx)
-                self.up_heap(parent)
+lst = [0] * 100001
 
-    def down_heap(self, idx) :
-        left = 2 * idx
-        right = 2 * idx + 1
+for _ in range(n) :
+    lst[int(input())] += 1
 
-        if (right <= self.heap_size) :  #양쪽 모두 데이터가 있는 경우
-            if self.data[left] <= self.data[right] :
-                if self.data[left] < self.data[idx] :
-                    self.swap(left, idx)
-                    self.down_heap(left)
-                else :
-                    return
-            else :
-                if self.data[right] < self.data[idx] :
-                    self.swap(right, idx)
-                    self.down_heap(right)
-                else :
-                    return
-        elif(left <= self.heap_size) : #left에만 데이터가 있는 겨우
-            if self.data[left] < self.data[idx] :
-                self.swap(left, idx)
-                self.down_heap(left)
-            else :
-                return
-        else :  #양쪽 모두 데이터가 없는 겨우
-            return 
-
-    def insert(self, e : int) -> int:
-        self.data.append(e)
-        self.heap_size += 1
-        self.up_heap(self.heap_size)
-
-    def remove_min(self) :
-        top = self.data[self.root_index]
-        self.data[self.root_index] = self.data[self.heap_size]
-        self.heap_size -= 1
-        self.down_heap(self.root_index)
-        return top
-    
-
-size = int(input())
-heap = Heap()
-
-for _ in range(size) :
-    heap.insert(int(input()))
-
-while not (heap.is_empty()) :
-    print(heap.remove_min())
+for i in range(n) :
+    if lst[i] != 0 :
+        for _ in range(lst[i]) :
+            print(i)
