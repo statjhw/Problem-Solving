@@ -4,9 +4,10 @@
 
 A, B, V = map(int, input().split())
 
-day = (V - A) // (A - B) + 1
+day = (V - A) / (A - B) 
 
-if (V - A) < (A - B) :
-    day = 2
+if day - int(day) != 0 :
+    day = int(day) + 1
+day = day + 1
 
-print(day)
+print(int(day))
