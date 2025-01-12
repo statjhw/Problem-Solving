@@ -1,4 +1,6 @@
 #2751_수 정렬하기 2
+#heap 정렬
+#O(nlogn)
 import sys
 import heapq
 
