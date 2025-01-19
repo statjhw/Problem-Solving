@@ -36,7 +36,3 @@ for _ in range(T) :
             else :
                 printer.popleft()
             
-        
-
-
-
