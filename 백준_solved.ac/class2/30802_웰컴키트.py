@@ -15,7 +15,7 @@ r = 0
 for i in lst :
     if i == 0 :
         continue
-    tshirt += ( (i-1) // T + 1) 
+    tshirt += ( (i-1) // T + 1)   #T의 배수 일 때 + 1되기 때문에 i - 1을 나누어야 함함
 
 pen = ( n // P)
 r = (n % P)
