@@ -9,7 +9,7 @@ M, N, H = map(int, input().split())
 
 count = 0
 
-def bfs(graph, visited, nodes) :
+def bfs(graph, nodes) :
     global count
     """day->한번 진행 시 변경사항 적용됨
     graph -> 토마토의 상태, -1, 0, 1
@@ -18,46 +18,56 @@ def bfs(graph, visited, nodes) :
     dx = [-1, 1, 0, 0, 0, 0]
     dy = [0, 0, -1, 1, 0, 0]
     dz = [0, 0, 0, 0, -1, 1]
-
+    count = len(nodes)
+    queue = deque(nodes)
+    days = {}
     for node in nodes :
+        days[node] = 0
+    max = 0
+
+    while queue :
+        node = queue.popleft()
         for i in range(6) :
             x = node[0] + dx[i]
             y = node[1] + dy[i]
             z = node[2] + dz[i]
-
-            if 0 <= x < M and 0 <= y < N and 0 <= z < H  :
-                if visited[z][y][x] == False and graph[z][y][x] == -1 :
-                    visited[z][y][x] == True
-                    nodes.append((x,y,z))
+            if 0 <= x < M and 0 <= y < N and 0 <= z < H :
+                if graph[z][y][x] == 0 :
+                    graph[z][y][x] = 1
+                    queue.append((x, y, z))
+                    days[(x, y, z)] = days[node] + 1
+                    if max < days[(x, y, z)] :
+                        max = days[(x, y, z)]
                     count += 1
-                if visited[z][y][x] == False and graph[z][y][x] == 0 :
-                    visited[z][y][x] == True
 
+    return max
 
 graph = []
 nodes = []
-visited = []
-
+total = 0
 for z in range(H) :
     lst = []
-    visit = []
     for y in range(N) :
         l = list(map(int, input().split()))
         for x in range(len(l)) :
             if l[x] == 1 :
                 nodes.append((x, y, z))
+            if l[x] == 1 or l[x] == 0 :
+                total += 1
         lst.append(l)
-        visit.append([False] * M)
-    visited.append(visit)
     graph.append(lst)
 
-for node in nodes :
-    visited[node[2]][node[1]][node[0]] = True
+if total == len(nodes) :
+    print("0")
+    sys.exit()
 
-count += len(nodes)
-result = 0
-while True :
-    bfs(graph, visited, nodes)
-    result += 1
+
+max = bfs(graph, nodes)
+
+if total == count :
+    print(max)
+else :
+    print("-1")
+
 
 
